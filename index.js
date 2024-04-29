@@ -206,7 +206,13 @@ app.post('/upload', upload.single('image'), (req, res) => {
   }
 
 //const imagePath = 'emotions2.jpeg'; // Replace 'input.jpg' with the path to your image file
-
+myJSONArray = {
+    timeTaken: "",
+    joyful: [],
+    anger: [],
+    sorrow: [],
+    surprise: []
+  }
 clearAndDetectAndSaveFacesWithEmotions(req.file, outputFolder).then((result) => {
     return res.status(200).send(result);
 })
