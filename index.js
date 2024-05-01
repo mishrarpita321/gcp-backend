@@ -4,6 +4,17 @@ const multer = require('multer');
 const app = express();
 const PORT = 3000;
 
+const cors = require('cors');
+const corsOptions = {
+    origin: 'http://localhost:5173', // Allow only this origin to access
+    methods: 'GET,POST', // Allowed request methods
+    allowedHeaders: 'Content-Type,Authorization', // Allowed custom headers
+    credentials: true, // Allow cookies to be sent with requests
+    optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions)); // Use CORS options for all routes
+
 const fs = require('fs');
 const fsExtra = require('fs-extra');
 const { ImageAnnotatorClient } = require('@google-cloud/vision');
@@ -214,7 +225,8 @@ myJSONArray = {
     surprise: []
   }
 clearAndDetectAndSaveFacesWithEmotions(req.file, outputFolder).then((result) => {
-    return res.status(200).send(result);
+    // return res.status(200).send(result);
+    return res.status(200).send((result));
 })
 
   // Send a success response
